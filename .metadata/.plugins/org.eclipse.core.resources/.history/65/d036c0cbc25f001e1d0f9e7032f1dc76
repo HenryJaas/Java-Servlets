@@ -1,0 +1,7 @@
+package initialParameter_02;
+
+import jakarta.servlet.http.HttpServlet;
+
+public class InitialParameterServlet extends HttpServlet {
+
+}

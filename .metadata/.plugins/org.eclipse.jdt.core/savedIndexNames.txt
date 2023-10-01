@@ -1,0 +1,7 @@
+INDEX VERSION 1.134+E:\JavaPalvelinOhj\.metadata\.plugins\org.eclipse.jdt.core
+444592738.index
+484759499.index
+1865797976.index
+3442141811.index
+86881493.index
+3099372422.index
