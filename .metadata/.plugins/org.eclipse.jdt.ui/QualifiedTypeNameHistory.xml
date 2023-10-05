@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="jakarta.servlet.annotation.WebServlet"/>
     <fullyQualifiedTypeName name="jakarta.servlet.annotation.WebInitParam"/>
     <fullyQualifiedTypeName name="jakarta.servlet.ServletConfig"/>
-    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServletRequest"/>
-    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServletResponse"/>
-    <fullyQualifiedTypeName name="java.io.IOException"/>
-    <fullyQualifiedTypeName name="java.io.PrintWriter"/>
     <fullyQualifiedTypeName name="jakarta.servlet.ServletContext"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.ServletException"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.annotation.WebServlet"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServletResponse"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpSession"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServletRequest"/>
+    <fullyQualifiedTypeName name="java.io.PrintWriter"/>
+    <fullyQualifiedTypeName name="jakarta.ws.rs.core.Cookie"/>
+    <fullyQualifiedTypeName name="java.sql.DriverManager"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="org.mariadb.jdbc.Connection"/>
+    <fullyQualifiedTypeName name="jakarta.jms.Connection"/>
+    <fullyQualifiedTypeName name="java.io.IOException"/>
 </qualifiedTypeNameHistroy>

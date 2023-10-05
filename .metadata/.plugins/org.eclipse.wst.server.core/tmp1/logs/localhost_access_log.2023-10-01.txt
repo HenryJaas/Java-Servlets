@@ -65,3 +65,9 @@
 0:0:0:0:0:0:0:1 - - [01/Oct/2023:22:20:44 +0300] "POST /ServletCommunication_2/loginServlet HTTP/1.1" 200 79
 0:0:0:0:0:0:0:1 - - [01/Oct/2023:22:20:45 +0300] "GET /ServletCommunication_2/loginServlet HTTP/1.1" 200 476
 0:0:0:0:0:0:0:1 - - [01/Oct/2023:22:20:46 +0300] "POST /ServletCommunication_2/loginServlet HTTP/1.1" 200 79
+127.0.0.1 - - [01/Oct/2023:22:21:44 +0300] "GET / HTTP/1.1" 404 752
+0:0:0:0:0:0:0:1 - - [01/Oct/2023:22:21:44 +0300] "GET /ServletCommunication_2/ HTTP/1.1" 404 779
+0:0:0:0:0:0:0:1 - - [01/Oct/2023:22:21:57 +0300] "GET /ServletCommunication_2/loginServlet HTTP/1.1" 200 476
+0:0:0:0:0:0:0:1 - - [01/Oct/2023:22:22:03 +0300] "POST /ServletCommunication_2/loginServlet HTTP/1.1" 200 79
+0:0:0:0:0:0:0:1 - - [01/Oct/2023:22:22:21 +0300] "GET /ServletCommunication_2/loginServlet HTTP/1.1" 200 476
+0:0:0:0:0:0:0:1 - - [01/Oct/2023:22:22:24 +0300] "POST /ServletCommunication_2/loginServlet HTTP/1.1" 200 476

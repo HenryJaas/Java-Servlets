@@ -3,6 +3,7 @@
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
 			<item value="E:\JavaPalvelinOhj"/>
+			<item value="E:\JavaPalvelinOhj\ServletCommunication_2"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -50,7 +51,9 @@
 		<list key="name">
 		</list>
 		<list key="artifactId">
-			<item value="initialParameter_02"/>
+			<item value="CookieSession"/>
+			<item value="Cookielol"/>
+			<item value="SessionCookie"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -67,5 +70,17 @@
 	<section name="org.eclipse.m2e.core.pom.overview">
 	</section>
 	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="MavenModuleWizardParentPage">
+		<list key="moduleName">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
 	</section>
 </section>
