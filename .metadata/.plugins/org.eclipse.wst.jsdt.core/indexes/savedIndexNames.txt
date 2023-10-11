@@ -1,10 +1,5 @@
 INDEX VERSION 1.4+E:\JavaPalvelinOhj\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-1472764152.index
 3442141811.index
-209133448.index
-2259753476.index
-2082572630.index
-0.index
-3424725453.index
-131176741.index
+1885234198.index
 3099372422.index
+2259753476.index
