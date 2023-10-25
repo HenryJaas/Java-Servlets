@@ -51,6 +51,7 @@
 		<list key="name">
 		</list>
 		<list key="artifactId">
+			<item value="REST_API"/>
 			<item value="JSP_Assignment"/>
 			<item value="JSP_DEMO"/>
 			<item value="CookieSession"/>
