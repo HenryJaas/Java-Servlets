@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Students</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script>
+        window.onload = function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "studentServlet", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var students = JSON.parse(xhr.responseText);
+                    var table = document.getElementById("studentTable");
+
+                    // Create header row
+                    var headerRow = document.createElement("tr");
+                    headerRow.appendChild(createHeaderCell("Student ID"));
+                    headerRow.appendChild(createHeaderCell("First Name"));
+                    headerRow.appendChild(createHeaderCell("Last Name"));
+                    headerRow.appendChild(createHeaderCell("Email"));
+                    headerRow.appendChild(createHeaderCell("Actions"));
+                    table.appendChild(headerRow);
+
+                    // Create data rows
+                    for (var i = 0; i < students.length; i++) {
+                        var row = document.createElement("tr");
+                        var idCell = createEditableCell(students[i].studentID);
+                        var firstNameCell = createEditableCell(students[i].firstname);
+                        var lastNameCell = createEditableCell(students[i].lastname);
+                        var emailCell = createEditableCell(students[i].email);
+                        row.appendChild(idCell);
+                        row.appendChild(firstNameCell);
+                        row.appendChild(lastNameCell);
+                        row.appendChild(emailCell);
+
+                        // Add edit and delete buttons
+                        var actionsCell = document.createElement("td");
+                        var editButton = document.createElement("button");
+                        editButton.textContent = "Edit";
+                        editButton.onclick = createEditFunction(idCell, firstNameCell, lastNameCell, emailCell);
+                        actionsCell.appendChild(editButton);
+
+                    var deleteButton = document.createElement("button");
+						deleteButton.textContent = "Delete";
+						deleteButton.onclick = (function(studentID, row) {
+						    return function() {
+						        fetch('studentServlet?studentID=' + studentID, {
+						            method: 'DELETE'
+						        }).then(function(response) {
+						            if (response.ok) {
+						                console.log('Student was deleted successfully');
+						                table.removeChild(row);
+						            } else {
+						                console.error('Failed to delete student');
+						            }
+						        }).catch(function(error) {
+						            console.error('Error:', error);
+						        });
+						    };
+						})(idCell.firstChild.value, row);
+						actionsCell.appendChild(deleteButton);
+
+                        row.appendChild(actionsCell);
+
+                        table.appendChild(row);
+                    }
+                }
+            }
+            xhr.send();
+
+            document.getElementById("addStudentButton").onclick = function() {
+                var table = document.getElementById("studentTable");
+                var row = document.createElement("tr");
+                var idCell = createEditableCell("");
+                var firstNameCell = createEditableCell("");
+                var lastNameCell = createEditableCell("");
+                var emailCell = createEditableCell("");
+                row.appendChild(idCell);
+                row.appendChild(firstNameCell);
+                row.appendChild(lastNameCell);
+                row.appendChild(emailCell);
+
+                var actionsCell = document.createElement("td");
+                var saveButton = document.createElement("button");
+                saveButton.textContent = "Save";
+
+                saveButton.onclick = function() {
+                    var student = {
+                        studentID: idCell.firstChild.value,
+                        firstname: firstNameCell.firstChild.value,
+                        lastname: lastNameCell.firstChild.value,
+                        email: emailCell.firstChild.value
+                    };
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "studentServlet", true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.send(JSON.stringify(student));
+
+                    xhr.onload = function() {
+                        if (xhr.status == 200) {
+                            console.log('Student was added successfully');
+                            actionsCell.removeChild(saveButton);
+                        } else {
+                            console.error('Failed to add student');
+                        }
+                    };
+                };
+
+                actionsCell.appendChild(saveButton);
+                row.appendChild(actionsCell);
+
+                table.appendChild(row);
+            };
+        };
+
+        function createHeaderCell(text) {
+            var cell = document.createElement("th");
+            cell.textContent = text;
+            return cell;
+        }
+
+        function createEditableCell(text) {
+            var cell = document.createElement("td");
+            var input = document.createElement("input");
+            input.value = text;
+            cell.appendChild(input);
+            return cell;
+        }
+
+        function createEditFunction(idCell, firstNameCell, lastNameCell, emailCell) {
+            return function() {
+                var student = {
+                    studentID: idCell.firstChild.value,
+                    firstname: firstNameCell.firstChild.value,
+                    lastname: lastNameCell.firstChild.value,
+                    email: emailCell.firstChild.value
+                };
+                var xhr = new XMLHttpRequest();
+                xhr.open("PUT", "studentServlet", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.send(JSON.stringify(student));
+            };
+        }
+    </script>
+</head>
+<body>
+    <h1>Manage Students</h1>
+    <button id="addStudentButton">Add Student</button>
+    <table id="studentTable">
+        <!-- Table data will go here -->
+    </table>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Courses</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script>
+        window.onload = function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "courseServlet", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var courses = JSON.parse(xhr.responseText);
+                    var table = document.getElementById("courseTable");
+                    
+                    // Create header row
+                    var headerRow = document.createElement("tr");
+                    headerRow.appendChild(createHeaderCell("Course ID"));
+                    headerRow.appendChild(createHeaderCell("Name"));
+                    headerRow.appendChild(createHeaderCell("Teacher Name"));
+                    headerRow.appendChild(createHeaderCell("Actions")); 
+                    table.appendChild(headerRow);
+                    
+                    // Create data rows
+                    for (var i = 0; i < courses.length; i++) {
+                        var row = document.createElement("tr");
+                        var idCell = createEditableCell(courses[i].courseID);
+                        var nameCell = createEditableCell(courses[i].name);
+                        var teacherNameCell = createEditableCell(courses[i].teacherName);
+                        row.appendChild(idCell);
+                        row.appendChild(nameCell);
+                        row.appendChild(teacherNameCell);
+                        
+                        // Add edit and delete buttons
+                        var actionsCell = document.createElement("td");
+                        var editButton = document.createElement("button");
+                        editButton.textContent = "Edit";
+                        editButton.onclick = createEditFunction(idCell, nameCell, teacherNameCell);
+                        actionsCell.appendChild(editButton);
+                        
+                       var deleteButton = document.createElement("button");
+						deleteButton.textContent = "Delete";
+						deleteButton.onclick = (function(courseID, row) {
+						    return function() {
+						        fetch('courseServlet?courseID=' + courseID, {
+						            method: 'DELETE'
+						        }).then(function(response) {
+						            if (response.ok) {
+						                console.log('Course was deleted successfully');
+						                table.removeChild(row);	            
+						            } else {
+						                console.error('Failed to delete course');
+						            }
+						        }).catch(function(error) {
+						            console.error('Error:', error);
+						        });
+						    };
+						})(idCell.firstChild.value, row);
+						actionsCell.appendChild(deleteButton);
+
+                        
+                        row.appendChild(actionsCell);
+                        
+                        table.appendChild(row);
+                    }                   
+                }
+            }
+            xhr.send();
+        
+
+        document.getElementById("addCourseButton").onclick = function() {
+            var table = document.getElementById("courseTable");
+            var row = document.createElement("tr");
+            var idCell = createEditableCell("");
+            var nameCell = createEditableCell("");
+            var teacherNameCell = createEditableCell("");
+            row.appendChild(idCell);
+            row.appendChild(nameCell);
+            row.appendChild(teacherNameCell);
+        
+            var actionsCell = document.createElement("td");
+            var saveButton = document.createElement("button");
+            saveButton.textContent = "Save";
+            
+            saveButton.onclick = function() {
+                var course = {
+                    courseID: idCell.firstChild.value,
+                    name: nameCell.firstChild.value,
+                    teacherName: teacherNameCell.firstChild.value
+                };
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "courseServlet", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.send(JSON.stringify(course));
+                
+                xhr.onload = function() {
+                    if (xhr.status == 200) {
+                        console.log('Course was added successfully');
+                        actionsCell.removeChild(saveButton);		             
+                    } else {
+                        console.error('Failed to add course');
+                    }
+                };
+            };
+        
+            actionsCell.appendChild(saveButton);
+            row.appendChild(actionsCell);
+        
+            table.appendChild(row);
+        };
+      };
+            
+        function createHeaderCell(text) {
+            var cell = document.createElement("th");
+            cell.textContent = text;
+            return cell;
+        }
+
+        function createEditableCell(text) {
+            var cell = document.createElement("td");
+            var input = document.createElement("input");
+            input.value = text;
+            cell.appendChild(input);
+            return cell;
+        }
+        
+        function createEditFunction(idCell, nameCell, teacherNameCell) {
+            return function() {
+                var course = {
+                    courseID: idCell.firstChild.value,
+                    name: nameCell.firstChild.value,
+                    teacherName: teacherNameCell.firstChild.value
+                };
+                var xhr = new XMLHttpRequest();
+                xhr.open("PUT", "courseServlet", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.send(JSON.stringify(course));
+            };
+        }   		
+    </script>
+</head>
+<body>
+    <h1>Manage Courses</h1>
+    <button id="addCourseButton">Add Course</button>
+    <table id="courseTable">
+        <!-- Table data will go here -->
+    </table>
+</body>
+</html>
+

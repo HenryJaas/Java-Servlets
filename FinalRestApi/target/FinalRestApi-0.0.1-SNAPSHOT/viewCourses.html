@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Courses</title>
+    <script>
+        window.onload = function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "courseServlet", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var courses = JSON.parse(xhr.responseText);
+                    var table = document.getElementById("courseTable");
+                    
+                    // Create header row
+                    var headerRow = document.createElement("tr");
+                    headerRow.appendChild(createHeaderCell("Course ID"));
+                    headerRow.appendChild(createHeaderCell("Name"));
+                    headerRow.appendChild(createHeaderCell("Teacher Name"));
+                    table.appendChild(headerRow);
+                    
+                    // Create data rows
+                    for (var i = 0; i < courses.length; i++) {
+                        var row = document.createElement("tr");
+                        row.appendChild(createCell(courses[i].courseID));
+                        row.appendChild(createCell(courses[i].name));
+                        row.appendChild(createCell(courses[i].teacherName));
+                        table.appendChild(row);
+                    }
+                }
+            }
+            xhr.send();
+        };
+
+        function createHeaderCell(text) {
+            var cell = document.createElement("th");
+            cell.textContent = text;
+            return cell;
+        }
+
+        function createCell(text) {
+            var cell = document.createElement("td");
+            cell.textContent = text;
+            return cell;
+        }
+    </script>
+</head>
+<body>
+    <h1>Course List</h1>
+    <table id="courseTable">
+        <!-- Table data will go here -->
+    </table>
+</body>
+</html>
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Students</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script>
+        window.onload = function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "studentServlet", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var students = JSON.parse(xhr.responseText);
+                    var table = document.getElementById("studentTable");
+                    
+                    // Create header row
+                    var headerRow = document.createElement("tr");
+                    headerRow.appendChild(createHeaderCell("Student ID"));
+                    headerRow.appendChild(createHeaderCell("First Name"));
+                    headerRow.appendChild(createHeaderCell("Last Name"));
+                    headerRow.appendChild(createHeaderCell("Email"));
+                    table.appendChild(headerRow);
+                    
+                    // Create data rows
+                    for (var i = 0; i < students.length; i++) {
+                        var row = document.createElement("tr");
+                        row.appendChild(createCell(students[i].studentID));
+                        row.appendChild(createCell(students[i].firstname));
+                        row.appendChild(createCell(students[i].lastname));
+                        row.appendChild(createCell(students[i].email));
+                        table.appendChild(row);
+                    }
+                }
+            }
+            xhr.send();
+        };
+
+        function createHeaderCell(text) {
+            var cell = document.createElement("th");
+            cell.textContent = text;
+            return cell;
+        }
+
+        function createCell(text) {
+            var cell = document.createElement("td");
+            cell.textContent = text;
+            return cell;
+        }
+    </script>
+</head>
+<body>
+    <h1>Student List</h1>
+    <table id="studentTable">
+        <!-- Table data will go here -->
+    </table>
+</body>
+</html>
